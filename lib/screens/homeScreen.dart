@@ -55,37 +55,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : _store.errors.length > 0
-                    ? Container(
-                        child: Center(
-                          child: Text(
-                              'Internet Not connected or try pull to refresh.'),
+                : ListView.builder(
+                    controller: _scrollController,
+                    itemCount: _store.pokemons.length,
+                    itemBuilder: (_, index) {
+                      return ListTile(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => PokeDetails(dex: index + 1),
+                          ),
                         ),
-                      )
-                    : ListView.builder(
-                        addRepaintBoundaries: true,
-                        controller: _scrollController,
-                        itemCount: _store.pokemons.length,
-                        itemBuilder: (_, index) {
-                          return ListTile(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => PokeDetails(dex: index + 1),
-                              ),
-                            ),
-                            title: Text(
-                              _store.pokemons[index].name,
-                              style: Theme.of(context).textTheme.headline1,
-                            ),
-                            leading: imageWidget(
-                                index + 1, _pokeConstant, 50.0, 50.0),
-                            trailing: Text(
-                              '${index+1}',
-                            ),
-                          );
-                        },
-                      ),
+                        title: Text(
+                          _store.pokemons[index].name,
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                        leading:
+                            imageWidget(index + 1, _pokeConstant, 50.0, 50.0),
+                        trailing: Text(
+                          '${index + 1}',
+                        ),
+                      );
+                    },
+                  ),
           ),
         ),
       ),

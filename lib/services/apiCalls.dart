@@ -8,7 +8,6 @@ Future<PokemonModel> fetchData({String nextUrl}) async {
     String searchQueryUrl;
     if (nextUrl != null) {
       searchQueryUrl = 'https://pokeapi.co/api/v2/pokemon/$nextUrl';
-      print(searchQueryUrl);
     } else {
       searchQueryUrl = 'https://pokeapi.co/api/v2/pokemon/';
     }
